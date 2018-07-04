@@ -24,5 +24,9 @@
   "bugs": {
     "url": "https://github.com/iistyler/FirebaseObject/issues"
   },
-  "homepage": "https://github.com/iistyler/FirebaseObject#readme"
+  "homepage": "https://github.com/iistyler/FirebaseObject#readme",
+  "dependencies": {
+    "angularfire2": "^5.0.0-rc.11",
+    "simple-async-block": "^1.0.3"
+  }
 }
