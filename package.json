@@ -1,0 +1,28 @@
+{
+  "name": "firebase-object",
+  "version": "1.0.0",
+  "description": "Classes for abstracting firebase logic out of your application",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iistyler/FirebaseObject.git"
+  },
+  "keywords": [
+    "firebase",
+    "db",
+    "js",
+    "javascript",
+    "typescript",
+    "abstraction"
+  ],
+  "author": "Tyler Herbert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iistyler/FirebaseObject/issues"
+  },
+  "homepage": "https://github.com/iistyler/FirebaseObject#readme"
+}
