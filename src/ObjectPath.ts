@@ -19,41 +19,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import { FirebaseInterface } from './FirebaseInterface';
-import { LoginData } from './LoginData';
-import { ObjectPath } from "./ObjectPath";
 
-export class Savable extends FirebaseInterface {
+import { LoginData } from "./LoginData";
 
-    /*      [ Saving ]       */
+export class ObjectPath {
 
-    public save() {
-        const db = LoginData.sharedInstance.db;
-        const saveTablePath = this.tablePath.saveTablePath(this);
-		const saveTableItemPath = this.tablePath.saveTableItemPath(this);
+	/// Path used for loading the object with `loadSelf`
+	public loadSelfPath = (object: any) => {
+		return this.defaultItemPath(object);
+	};
 
-        this.willSave();
+	/// Path used for saving object
+	public saveTablePath = (object: any) => {
+		return this.defaultTablePath(object);
+	};
 
-        // New object, we get a new UID for it
-        if (!this.data['uid']) {
-            this.data['uid'] = db.database.ref(saveTablePath).push().key;
-        }
+	/// Path used for saving object
+	public saveTableItemPath = (object: any) => {
+		return this.defaultItemPath(object);
+	};
 
-        // Save
-        db.database.ref(saveTableItemPath).set(this.data);
+	/// Path used for deleting object
+	public deleteTableItemPath = (object: any) => {
+		return this.defaultItemPath(object);
+	};
 
-        this.didSave();
-    }
+	/// default path of the items table
+	public defaultTablePath = (object: any) => {
+		const loginId = LoginData.sharedInstance.loginId;
+		return loginId + '/' + object.constructor['tableName'];
+	};
 
-    public willSave() {
-        // Does nothing, can be overriden in subclass
-    }
-
-    public shouldSave() {
-        return true;
-    }
-
-    public didSave() {
-        // Does nothing, can be overriden in subclass
-    }
+	/// default path of the item
+	public defaultItemPath = (object: any) => {
+		return this.defaultTablePath(object) + '/' + object.data['uid'];
+	};
 }

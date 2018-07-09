@@ -22,10 +22,13 @@
 import { FirebaseInterface } from './FirebaseInterface';
 import { LoginData } from './LoginData';
 import { AsyncBlock } from 'simple-async-block/AsyncBlock';
+import { ObjectPath } from "./ObjectPath";
 
 export class Loadable extends FirebaseInterface {
 
     public childTypes: any[];
+
+    public tablePath: ObjectPath;
 
     public children: {};
 
@@ -85,10 +88,10 @@ export class Loadable extends FirebaseInterface {
 
     public loadSelf(callback=null) {
         const db = LoginData.sharedInstance.db;
-        const loginId = LoginData.sharedInstance.loginId;
         const self = this;
+        const loadSelfPath = this.tablePath.loadSelfPath(this);
 
-        db.database.ref(loginId + '/' + self.constructor['tableName'] + '/' + self.data['uid']).once('value').then(function (response) {
+        db.database.ref(loadSelfPath).once('value').then(function (response) {
             self.importData(response.val());
             if (callback) callback();
         });

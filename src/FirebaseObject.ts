@@ -22,6 +22,7 @@
 import { Savable } from "./Savable";
 import { Deletable } from "./Deletable";
 import { Loadable } from "./Loadable";
+import { ObjectPath } from "./ObjectPath";
 
 export class FirebaseObject implements Savable, Deletable, Loadable {
 
@@ -29,6 +30,8 @@ export class FirebaseObject implements Savable, Deletable, Loadable {
 
     /// Data loaded from FB
     public data: {};
+
+	public tablePath = new ObjectPath();
 
     /// Keys to load from FB
     public keys: {}[];

@@ -24,17 +24,17 @@ import { LoginData } from './LoginData';
 
 export class Deletable extends FirebaseInterface {
 
-    /*      [ Saving ]       */
+    /*      [ Deleting ]       */
 
     public delete() {
         const db = LoginData.sharedInstance.db;
-        const loginId = LoginData.sharedInstance.loginId;
+        const deleteTableItemPath = this.tablePath.deleteTableItemPath(this);
 
         this.willDelete();
 
         // Delete
         if (this.shouldDelete()) {
-            db.database.ref(loginId + '/' + this.constructor['tableName'] + '/' + this.data['uid']).remove();
+            db.database.ref(deleteTableItemPath).remove();
         }
 
         this.didDelete();

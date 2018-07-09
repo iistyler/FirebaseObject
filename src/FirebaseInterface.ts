@@ -19,6 +19,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import { ObjectPath } from "./ObjectPath";
+
 export class FirebaseInterface {
 
     constructor() {
@@ -32,4 +34,6 @@ export class FirebaseInterface {
 
     /// Keys to load from FB
     public keys: {}[];
+
+	public tablePath: ObjectPath;
 }
