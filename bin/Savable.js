@@ -40,14 +40,15 @@ var Savable = /** @class */ (function (_super) {
     /*      [ Saving ]       */
     Savable.prototype.save = function () {
         var db = LoginData_1.LoginData.sharedInstance.db;
-        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var saveTablePath = this.tablePath.saveTablePath(this);
+        var saveTableItemPath = this.tablePath.saveTableItemPath(this);
         this.willSave();
         // New object, we get a new UID for it
         if (!this.data['uid']) {
-            this.data['uid'] = db.database.ref(loginId + '/' + this.constructor['tableName']).push().key;
+            this.data['uid'] = db.database.ref(saveTablePath).push().key;
         }
         // Save
-        db.database.ref(loginId + '/' + this.constructor['tableName'] + '/' + this.data['uid']).set(this.data);
+        db.database.ref(saveTableItemPath).set(this.data);
         this.didSave();
     };
     Savable.prototype.willSave = function () {

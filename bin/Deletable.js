@@ -37,14 +37,14 @@ var Deletable = /** @class */ (function (_super) {
     function Deletable() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /*      [ Saving ]       */
+    /*      [ Deleting ]       */
     Deletable.prototype["delete"] = function () {
         var db = LoginData_1.LoginData.sharedInstance.db;
-        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var deleteTableItemPath = this.tablePath.deleteTableItemPath(this);
         this.willDelete();
         // Delete
         if (this.shouldDelete()) {
-            db.database.ref(loginId + '/' + this.constructor['tableName'] + '/' + this.data['uid']).remove();
+            db.database.ref(deleteTableItemPath).remove();
         }
         this.didDelete();
     };

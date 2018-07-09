@@ -23,8 +23,10 @@ exports.__esModule = true;
 var Savable_1 = require("./Savable");
 var Deletable_1 = require("./Deletable");
 var Loadable_1 = require("./Loadable");
+var ObjectPath_1 = require("./ObjectPath");
 var FirebaseObject = /** @class */ (function () {
     function FirebaseObject() {
+        this.tablePath = new ObjectPath_1.ObjectPath();
     }
     return FirebaseObject;
 }());

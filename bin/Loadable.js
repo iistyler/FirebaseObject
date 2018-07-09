@@ -89,9 +89,9 @@ var Loadable = /** @class */ (function (_super) {
     Loadable.prototype.loadSelf = function (callback) {
         if (callback === void 0) { callback = null; }
         var db = LoginData_1.LoginData.sharedInstance.db;
-        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
         var self = this;
-        db.database.ref(loginId + '/' + self.constructor['tableName'] + '/' + self.data['uid']).once('value').then(function (response) {
+        var loadSelfPath = this.tablePath.loadSelfPath(this);
+        db.database.ref(loadSelfPath).once('value').then(function (response) {
             self.importData(response.val());
             if (callback)
                 callback();
