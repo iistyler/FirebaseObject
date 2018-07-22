@@ -30,7 +30,6 @@ export class Savable extends FirebaseInterface {
     public save() {
         const db = LoginData.sharedInstance.db;
         const saveTablePath = this.tablePath.saveTablePath(this);
-		const saveTableItemPath = this.tablePath.saveTableItemPath(this);
 
         this.willSave();
 
@@ -38,6 +37,7 @@ export class Savable extends FirebaseInterface {
         if (!this.data['uid']) {
             this.data['uid'] = db.database.ref(saveTablePath).push().key;
         }
+        const saveTableItemPath = this.tablePath.saveTableItemPath(this);
 
         // Save
         db.database.ref(saveTableItemPath).set(this.data);

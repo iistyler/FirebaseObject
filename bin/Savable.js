@@ -41,12 +41,12 @@ var Savable = /** @class */ (function (_super) {
     Savable.prototype.save = function () {
         var db = LoginData_1.LoginData.sharedInstance.db;
         var saveTablePath = this.tablePath.saveTablePath(this);
-        var saveTableItemPath = this.tablePath.saveTableItemPath(this);
         this.willSave();
         // New object, we get a new UID for it
         if (!this.data['uid']) {
             this.data['uid'] = db.database.ref(saveTablePath).push().key;
         }
+        var saveTableItemPath = this.tablePath.saveTableItemPath(this);
         // Save
         db.database.ref(saveTableItemPath).set(this.data);
         this.didSave();
