@@ -19,7 +19,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var LoginData_1 = require("./LoginData");
 var ObjectPath = /** @class */ (function () {
     function ObjectPath() {
@@ -48,6 +48,20 @@ var ObjectPath = /** @class */ (function () {
         /// default path of the item
         this.defaultItemPath = function (object) {
             return _this.defaultTablePath(object) + '/' + object.data['uid'];
+        };
+        /// Path to load children from
+        this.loadChildrenPath = function (object, childType) {
+            var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+            return loginId + '/' + childType.tableName;
+        };
+        this.loadChildrenConditionParameter = function (object) {
+            return object.constructor['tableName'] + 'Id';
+        };
+        this.loadChildrenConditionValue = function (object) {
+            return object.constructor['tableName'] + 'Id';
+        };
+        this.loadAllPath = function (object) {
+            return "";
         };
     }
     return ObjectPath;

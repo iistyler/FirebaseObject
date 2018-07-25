@@ -28,8 +28,6 @@ export class Loadable extends FirebaseInterface {
 
     public childTypes: any[];
 
-    public tablePath: ObjectPath;
-
     public children: {};
 
     /*      [ Load children ]       */
@@ -52,8 +50,11 @@ export class Loadable extends FirebaseInterface {
         const db = LoginData.sharedInstance.db;
         const loginId = LoginData.sharedInstance.loginId;
         const self = this;
+        const loadChildrenPath = this.tablePath.loadChildrenPath(this, childType);
+        const loadChildrenConditionParameter = this.tablePath.loadChildrenConditionParameter(this);
+        const loadChildrenConditionValue = this.tablePath.loadChildrenConditionValue(this);
 
-        db.database.ref(loginId + '/' + childType.tableName).orderByChild(self.constructor['tableName'] + 'Id').equalTo(self.data['uid']).once('value').then(function (response) {
+        db.database.ref(loadChildrenPath).orderByChild(loadChildrenConditionParameter).equalTo(loadChildrenConditionValue).once('value').then(function (response) {
             const childObjectsJSON = response.val();
             const childObjects = {};
             for (const key in childObjectsJSON) {
@@ -94,6 +95,23 @@ export class Loadable extends FirebaseInterface {
         db.database.ref(loadSelfPath).once('value').then(function (response) {
             self.importData(response.val());
             if (callback) callback();
+        });
+    }
+
+    public static loadAll(callback) {
+        const db = LoginData.sharedInstance.db;
+        const loginId = LoginData.sharedInstance.loginId;
+        const self = this;
+        const loadAllPath = this.classTablePath.loadAllPath(this);
+
+        db.database.ref(loadAllPath).once('value').then(function (response) {
+            const objectsJSON = response.val();
+            const newObjects = {};
+            for (const key in objectsJSON) {
+              const objectJSON = objectsJSON[key];
+                newObjects[objectJSON.uid] = new this.constructor(objectJSON);
+            }
+            callback(newObjects)
         });
     }
 }

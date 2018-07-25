@@ -29,7 +29,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var FirebaseInterface_1 = require("./FirebaseInterface");
 var LoginData_1 = require("./LoginData");
 var AsyncBlock_1 = require("simple-async-block/AsyncBlock");
@@ -56,7 +56,10 @@ var Loadable = /** @class */ (function (_super) {
         var db = LoginData_1.LoginData.sharedInstance.db;
         var loginId = LoginData_1.LoginData.sharedInstance.loginId;
         var self = this;
-        db.database.ref(loginId + '/' + childType.tableName).orderByChild(self.constructor['tableName'] + 'Id').equalTo(self.data['uid']).once('value').then(function (response) {
+        var loadChildrenPath = this.tablePath.loadChildrenPath(this, childType);
+        var loadChildrenConditionParameter = this.tablePath.loadChildrenConditionParameter(this);
+        var loadChildrenConditionValue = this.tablePath.loadChildrenConditionValue(this);
+        db.database.ref(loadChildrenPath).orderByChild(loadChildrenConditionParameter).equalTo(loadChildrenConditionValue).once('value').then(function (response) {
             var childObjectsJSON = response.val();
             var childObjects = {};
             for (var key in childObjectsJSON) {
@@ -95,6 +98,21 @@ var Loadable = /** @class */ (function (_super) {
             self.importData(response.val());
             if (callback)
                 callback();
+        });
+    };
+    Loadable.loadAll = function (callback) {
+        var db = LoginData_1.LoginData.sharedInstance.db;
+        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var self = this;
+        var loadAllPath = this.classTablePath.loadAllPath(this);
+        db.database.ref(loadAllPath).once('value').then(function (response) {
+            var objectsJSON = response.val();
+            var newObjects = {};
+            for (var key in objectsJSON) {
+                var objectJSON = objectsJSON[key];
+                newObjects[objectJSON.uid] = new this.constructor(objectJSON);
+            }
+            callback(newObjects);
         });
     };
     return Loadable;

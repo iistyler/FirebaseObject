@@ -54,4 +54,23 @@ export class ObjectPath {
 	public defaultItemPath = (object: any) => {
 		return this.defaultTablePath(object) + '/' + object.data['uid'];
 	};
+
+	/// Path to load children from
+	public loadChildrenPath = (object: any, childType: any) => {
+		const loginId = LoginData.sharedInstance.loginId;
+		return loginId + '/' + childType.tableName
+	};
+
+	public loadChildrenConditionParameter = (object: any) => {
+		return object.constructor['tableName'] + 'Id'
+	};
+
+	public loadChildrenConditionValue = (object: any) => {
+		return object.constructor['tableName'] + 'Id'
+	};
+
+	public loadAllPath = (object: any) => {
+		return ""
+	}
+
 }

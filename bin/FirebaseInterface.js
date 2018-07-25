@@ -19,11 +19,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var FirebaseInterface = /** @class */ (function () {
     function FirebaseInterface() {
+        this.tablePath = FirebaseInterface.classTablePath;
     }
-    FirebaseInterface.tableName = '';
+    FirebaseInterface.classTableName = '';
+    FirebaseInterface.tableName = FirebaseInterface.classTableName;
     return FirebaseInterface;
 }());
 exports.FirebaseInterface = FirebaseInterface;

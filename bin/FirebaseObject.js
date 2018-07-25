@@ -19,7 +19,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Savable_1 = require("./Savable");
 var Deletable_1 = require("./Deletable");
 var Loadable_1 = require("./Loadable");

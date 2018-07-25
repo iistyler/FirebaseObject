@@ -29,7 +29,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var FirebaseInterface_1 = require("./FirebaseInterface");
 var LoginData_1 = require("./LoginData");
 var Deletable = /** @class */ (function (_super) {
@@ -38,7 +38,7 @@ var Deletable = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     /*      [ Deleting ]       */
-    Deletable.prototype["delete"] = function () {
+    Deletable.prototype.delete = function () {
         var db = LoginData_1.LoginData.sharedInstance.db;
         var deleteTableItemPath = this.tablePath.deleteTableItemPath(this);
         this.willDelete();

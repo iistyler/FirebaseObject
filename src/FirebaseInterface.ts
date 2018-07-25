@@ -27,7 +27,9 @@ export class FirebaseInterface {
 
     }
 
-    public static tableName = '';
+    public static classTableName = '';
+
+    public static tableName = FirebaseInterface.classTableName;
 
     /// Data loaded from FB
     public data: {};
@@ -35,5 +37,7 @@ export class FirebaseInterface {
     /// Keys to load from FB
     public keys: {}[];
 
-	public tablePath: ObjectPath;
+	public static classTablePath: ObjectPath;
+
+    public tablePath = FirebaseInterface.classTablePath;
 }
