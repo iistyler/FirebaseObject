@@ -38,6 +38,20 @@ var Loadable = /** @class */ (function (_super) {
     function Loadable() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Loadable.loadAllOfType = function (type, callback) {
+        var db = LoginData_1.LoginData.sharedInstance.db;
+        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var loadAllPath = type.classTablePath.loadAllPath(type);
+        db.database.ref(loadAllPath).once('value').then(function (response) {
+            var objectsJSON = response.val();
+            var newObjects = {};
+            for (var key in objectsJSON) {
+                var objectJSON = objectsJSON[key];
+                newObjects[objectJSON.uid] = new type(objectJSON);
+            }
+            callback(newObjects);
+        });
+    };
     /*      [ Load children ]       */
     Loadable.prototype.importData = function (data) {
         var self = this;
@@ -98,21 +112,6 @@ var Loadable = /** @class */ (function (_super) {
             self.importData(response.val());
             if (callback)
                 callback();
-        });
-    };
-    Loadable.loadAll = function (callback) {
-        var db = LoginData_1.LoginData.sharedInstance.db;
-        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
-        var self = this;
-        var loadAllPath = this.classTablePath.loadAllPath(this);
-        db.database.ref(loadAllPath).once('value').then(function (response) {
-            var objectsJSON = response.val();
-            var newObjects = {};
-            for (var key in objectsJSON) {
-                var objectJSON = objectsJSON[key];
-                newObjects[objectJSON.uid] = new this.constructor(objectJSON);
-            }
-            callback(newObjects);
         });
     };
     return Loadable;

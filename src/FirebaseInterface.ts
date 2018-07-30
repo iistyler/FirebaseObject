@@ -26,10 +26,8 @@ export class FirebaseInterface {
     constructor() {
 
     }
-
-    public static classTableName = '';
-
-    public static tableName = FirebaseInterface.classTableName;
+    
+    public static tableName = '';
 
     /// Data loaded from FB
     public data: {};

@@ -5,7 +5,8 @@ import { ObjectPath } from "./ObjectPath";
 export declare class FirebaseObject implements Savable, Deletable, Loadable {
     static tableName: string;
     data: {};
-    tablePath: ObjectPath;
+    tablePath: any;
+    static classTablePath: ObjectPath;
     keys: {}[];
     importData: (any) => void;
     loadSelf: (callback) => void;

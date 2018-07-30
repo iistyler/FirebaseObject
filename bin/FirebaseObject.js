@@ -26,8 +26,9 @@ var Loadable_1 = require("./Loadable");
 var ObjectPath_1 = require("./ObjectPath");
 var FirebaseObject = /** @class */ (function () {
     function FirebaseObject() {
-        this.tablePath = new ObjectPath_1.ObjectPath();
+        this.tablePath = this.constructor["classTablePath"];
     }
+    FirebaseObject.classTablePath = new ObjectPath_1.ObjectPath();
     return FirebaseObject;
 }());
 exports.FirebaseObject = FirebaseObject;

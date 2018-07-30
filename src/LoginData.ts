@@ -19,15 +19,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import { AngularFireDatabase } from 'angularfire2/database';
-
 export class LoginData {
 
   /// Singleton object
   public static sharedInstance = new LoginData();
 
   /// Firebase database object
-  public db: AngularFireDatabase;
+  public db: any;
 
   /// Whether or not the user has been authenticated already
   public authenticated = false;

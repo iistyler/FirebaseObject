@@ -61,7 +61,8 @@ var ObjectPath = /** @class */ (function () {
             return object.constructor['tableName'] + 'Id';
         };
         this.loadAllPath = function (object) {
-            return "";
+            var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+            return loginId + '/' + object.tableName;
         };
     }
     return ObjectPath;

@@ -35,12 +35,12 @@ export class Savable extends FirebaseInterface {
 
         // New object, we get a new UID for it
         if (!this.data['uid']) {
-            this.data['uid'] = db.database.ref(saveTablePath).push().key;
+            this.data['uid'] = db.ref(saveTablePath).push().key;
         }
         const saveTableItemPath = this.tablePath.saveTableItemPath(this);
 
         // Save
-        db.database.ref(saveTableItemPath).set(this.data);
+        db.ref(saveTableItemPath).set(this.data);
 
         this.didSave();
     }

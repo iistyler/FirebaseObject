@@ -26,6 +26,22 @@ import { ObjectPath } from "./ObjectPath";
 
 export class Loadable extends FirebaseInterface {
 
+    public static loadAllOfType(type, callback) {
+        const db = LoginData.sharedInstance.db;
+        const loginId = LoginData.sharedInstance.loginId;
+        const loadAllPath = type.classTablePath.loadAllPath(type);
+
+        db.ref(loadAllPath).once('value').then(function (response) {
+            const objectsJSON = response.val();
+            const newObjects = {};
+            for (const key in objectsJSON) {
+                const objectJSON = objectsJSON[key];
+                newObjects[objectJSON.uid] = new type(objectJSON);
+            }
+            callback(newObjects)
+        });
+    }
+
     public childTypes: any[];
 
     public children: {};
@@ -54,7 +70,7 @@ export class Loadable extends FirebaseInterface {
         const loadChildrenConditionParameter = this.tablePath.loadChildrenConditionParameter(this);
         const loadChildrenConditionValue = this.tablePath.loadChildrenConditionValue(this);
 
-        db.database.ref(loadChildrenPath).orderByChild(loadChildrenConditionParameter).equalTo(loadChildrenConditionValue).once('value').then(function (response) {
+        db.ref(loadChildrenPath).orderByChild(loadChildrenConditionParameter).equalTo(loadChildrenConditionValue).once('value').then(function (response) {
             const childObjectsJSON = response.val();
             const childObjects = {};
             for (const key in childObjectsJSON) {
@@ -92,26 +108,9 @@ export class Loadable extends FirebaseInterface {
         const self = this;
         const loadSelfPath = this.tablePath.loadSelfPath(this);
 
-        db.database.ref(loadSelfPath).once('value').then(function (response) {
+        db.ref(loadSelfPath).once('value').then(function (response) {
             self.importData(response.val());
             if (callback) callback();
-        });
-    }
-
-    public static loadAll(callback) {
-        const db = LoginData.sharedInstance.db;
-        const loginId = LoginData.sharedInstance.loginId;
-        const self = this;
-        const loadAllPath = this.classTablePath.loadAllPath(this);
-
-        db.database.ref(loadAllPath).once('value').then(function (response) {
-            const objectsJSON = response.val();
-            const newObjects = {};
-            for (const key in objectsJSON) {
-              const objectJSON = objectsJSON[key];
-                newObjects[objectJSON.uid] = new this.constructor(objectJSON);
-            }
-            callback(newObjects)
         });
     }
 }

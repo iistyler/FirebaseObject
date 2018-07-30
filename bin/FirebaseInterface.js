@@ -24,8 +24,7 @@ var FirebaseInterface = /** @class */ (function () {
     function FirebaseInterface() {
         this.tablePath = FirebaseInterface.classTablePath;
     }
-    FirebaseInterface.classTableName = '';
-    FirebaseInterface.tableName = FirebaseInterface.classTableName;
+    FirebaseInterface.tableName = '';
     return FirebaseInterface;
 }());
 exports.FirebaseInterface = FirebaseInterface;

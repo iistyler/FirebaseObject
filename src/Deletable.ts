@@ -34,7 +34,7 @@ export class Deletable extends FirebaseInterface {
 
         // Delete
         if (this.shouldDelete()) {
-            db.database.ref(deleteTableItemPath).remove();
+            db.ref(deleteTableItemPath).remove();
         }
 
         this.didDelete();

@@ -31,7 +31,9 @@ export class FirebaseObject implements Savable, Deletable, Loadable {
     /// Data loaded from FB
     public data: {};
 
-	public tablePath = new ObjectPath();
+	public tablePath = this.constructor["classTablePath"];
+
+    public static classTablePath = new ObjectPath();
 
     /// Keys to load from FB
     public keys: {}[];

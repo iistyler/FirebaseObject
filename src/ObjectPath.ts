@@ -70,7 +70,8 @@ export class ObjectPath {
 	};
 
 	public loadAllPath = (object: any) => {
-		return ""
+		const loginId = LoginData.sharedInstance.loginId;
+		return loginId + '/' + object.tableName;
 	}
 
 }
