@@ -1,7 +1,6 @@
-import { AngularFireDatabase } from 'angularfire2/database';
 export declare class LoginData {
     static sharedInstance: LoginData;
-    db: AngularFireDatabase;
+    db: any;
     authenticated: boolean;
     username: any;
     loginId: string;

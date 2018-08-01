@@ -44,7 +44,7 @@ var Deletable = /** @class */ (function (_super) {
         this.willDelete();
         // Delete
         if (this.shouldDelete()) {
-            db.database.ref(deleteTableItemPath).remove();
+            db.ref(deleteTableItemPath).remove();
         }
         this.didDelete();
     };

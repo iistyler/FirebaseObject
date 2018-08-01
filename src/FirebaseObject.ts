@@ -73,6 +73,16 @@ export class FirebaseObject implements Savable, Deletable, Loadable {
     public childTypes: any[];
 
     public children: {};
+
+	public associatedObjectTypes: any[];
+
+	public associatedObjects: {};
+
+	public loadAssociatedObjects: (callback) => void;
+
+	public loadAssociatedObjectType: (type, callback) => void;
+
+	public loadAssociatedObject: (type, id, callback) => void;
 }
 applyMixins(FirebaseObject, [Savable, Deletable, Loadable]);
 

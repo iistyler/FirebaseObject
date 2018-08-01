@@ -46,6 +46,10 @@ export class Loadable extends FirebaseInterface {
 
     public children: {};
 
+    public associatedObjectTypes: any[];
+
+    public associatedObjects: {};
+
     /*      [ Load children ]       */
 
     public importData(data) {
@@ -81,6 +85,61 @@ export class Loadable extends FirebaseInterface {
             if (callback) callback();
         });
     }
+
+    public loadAssociatedObjects(callback) {
+
+    	const self = this;
+		const block = new AsyncBlock();
+
+		block.onStart((async) => {
+			for (const objectType of self.associatedObjectTypes) {
+				async.startBlock();
+				this.loadAssociatedObjectType(objectType, () => {
+					async.endBlock();
+				});
+			}
+		});
+
+		block.onComplete((result) => {
+			if (callback) callback();
+		});
+
+		block.start();
+	}
+
+    public loadAssociatedObjectType(type, callback) {
+    	const self = this;
+    	const block = new AsyncBlock();
+
+    	block.onStart((async) => {
+			for (const objectId of self.data[type.tableName + "Ids"]) {
+				async.startBlock();
+				self.associatedObjects[type.tableName] = {};
+				this.loadAssociatedObject(type, objectId, () => {
+					async.endBlock();
+				});
+			}
+		});
+
+    	block.onComplete((result) => {
+    		if (callback) callback();
+		});
+
+		block.start();
+	}
+
+    public loadAssociatedObject(type, id, callback) {
+		const db = LoginData.sharedInstance.db;
+		const loginId = LoginData.sharedInstance.loginId;
+		const self = this;
+		const path = this.tablePath.loadAssociatedPath(type, id);
+
+		db.ref(path).once('value').then(function (response) {
+			const objectJSON = response.val();
+			self.associatedObjects[type.tableName][id] = new type(objectJSON);
+			if (callback) callback();
+		});
+	}
 
     public loadAllChildren(callback) {
         const self = this;

@@ -42,7 +42,7 @@ var Loadable = /** @class */ (function (_super) {
         var db = LoginData_1.LoginData.sharedInstance.db;
         var loginId = LoginData_1.LoginData.sharedInstance.loginId;
         var loadAllPath = type.classTablePath.loadAllPath(type);
-        db.database.ref(loadAllPath).once('value').then(function (response) {
+        db.ref(loadAllPath).once('value').then(function (response) {
             var objectsJSON = response.val();
             var newObjects = {};
             for (var key in objectsJSON) {
@@ -73,7 +73,7 @@ var Loadable = /** @class */ (function (_super) {
         var loadChildrenPath = this.tablePath.loadChildrenPath(this, childType);
         var loadChildrenConditionParameter = this.tablePath.loadChildrenConditionParameter(this);
         var loadChildrenConditionValue = this.tablePath.loadChildrenConditionValue(this);
-        db.database.ref(loadChildrenPath).orderByChild(loadChildrenConditionParameter).equalTo(loadChildrenConditionValue).once('value').then(function (response) {
+        db.ref(loadChildrenPath).orderByChild(loadChildrenConditionParameter).equalTo(loadChildrenConditionValue).once('value').then(function (response) {
             var childObjectsJSON = response.val();
             var childObjects = {};
             for (var key in childObjectsJSON) {
@@ -81,6 +81,59 @@ var Loadable = /** @class */ (function (_super) {
                 childObjects[childObjectJSON.uid] = new childType(childObjectJSON);
             }
             self.children[childType.tableName] = childObjects;
+            if (callback)
+                callback();
+        });
+    };
+    Loadable.prototype.loadAssociatedObjects = function (callback) {
+        var _this = this;
+        var self = this;
+        var block = new AsyncBlock_1.AsyncBlock();
+        block.onStart(function (async) {
+            for (var _i = 0, _a = self.associatedObjectTypes; _i < _a.length; _i++) {
+                var objectType = _a[_i];
+                async.startBlock();
+                _this.loadAssociatedObjectType(objectType, function () {
+                    async.endBlock();
+                });
+            }
+        });
+        block.onComplete(function (result) {
+            if (callback)
+                callback();
+        });
+        block.start();
+    };
+    Loadable.prototype.loadAssociatedObjectType = function (type, callback) {
+        var _this = this;
+        var self = this;
+        var block = new AsyncBlock_1.AsyncBlock();
+        block.onStart(function (async) {
+            for (var _i = 0, _a = self.data[type.tableName + "Ids"]; _i < _a.length; _i++) {
+                var objectId = _a[_i];
+                async.startBlock();
+                self.associatedObjects[type.tableName] = {};
+                _this.loadAssociatedObject(type, objectId, function () {
+                    async.endBlock();
+                });
+            }
+        });
+        block.onComplete(function (result) {
+            if (callback)
+                callback();
+        });
+        block.start();
+    };
+    Loadable.prototype.loadAssociatedObject = function (type, id, callback) {
+        var db = LoginData_1.LoginData.sharedInstance.db;
+        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var self = this;
+        var path = this.tablePath.loadAssociatedPath(type, id);
+        console.log("path", path);
+        db.ref(path).once('value').then(function (response) {
+            var objectJSON = response.val();
+            console.log("Got", objectJSON);
+            self.associatedObjects[type.tableName][id] = new type(objectJSON);
             if (callback)
                 callback();
         });
@@ -108,7 +161,7 @@ var Loadable = /** @class */ (function (_super) {
         var db = LoginData_1.LoginData.sharedInstance.db;
         var self = this;
         var loadSelfPath = this.tablePath.loadSelfPath(this);
-        db.database.ref(loadSelfPath).once('value').then(function (response) {
+        db.ref(loadSelfPath).once('value').then(function (response) {
             self.importData(response.val());
             if (callback)
                 callback();

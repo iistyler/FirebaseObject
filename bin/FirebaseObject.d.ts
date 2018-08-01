@@ -22,4 +22,9 @@ export declare class FirebaseObject implements Savable, Deletable, Loadable {
     loadAllChildren: () => void;
     childTypes: any[];
     children: {};
+    associatedObjectTypes: any[];
+    associatedObjects: {};
+    loadAssociatedObjects: (callback) => void;
+    loadAssociatedObjectType: (type, callback) => void;
+    loadAssociatedObject: (type, id, callback) => void;
 }

@@ -61,6 +61,11 @@ export class ObjectPath {
 		return loginId + '/' + childType.tableName
 	};
 
+	public loadAssociatedPath = (objectType: any, childId: String) => {
+		const loginId = LoginData.sharedInstance.loginId;
+		return loginId + "/" + objectType.tableName + '/' + childId;
+	};
+
 	public loadChildrenConditionParameter = (object: any) => {
 		return object.constructor['tableName'] + 'Id'
 	};

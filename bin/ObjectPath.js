@@ -54,6 +54,10 @@ var ObjectPath = /** @class */ (function () {
             var loginId = LoginData_1.LoginData.sharedInstance.loginId;
             return loginId + '/' + childType.tableName;
         };
+        this.loadAssociatedPath = function (objectType, childId) {
+            var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+            return loginId + "/" + objectType.tableName + '/' + childId;
+        };
         this.loadChildrenConditionParameter = function (object) {
             return object.constructor['tableName'] + 'Id';
         };
