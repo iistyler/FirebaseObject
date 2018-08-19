@@ -28,7 +28,7 @@ export class Savable extends FirebaseInterface {
     /*      [ Saving ]       */
 
     public save() {
-        const db = LoginData.sharedInstance.db;
+        const db = this.loginDataInstance().db;
         const saveTablePath = this.tablePath.saveTablePath(this);
 
         this.willSave();

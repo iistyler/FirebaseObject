@@ -31,7 +31,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var FirebaseInterface_1 = require("./FirebaseInterface");
-var LoginData_1 = require("./LoginData");
 var Deletable = /** @class */ (function (_super) {
     __extends(Deletable, _super);
     function Deletable() {
@@ -39,7 +38,7 @@ var Deletable = /** @class */ (function (_super) {
     }
     /*      [ Deleting ]       */
     Deletable.prototype.delete = function () {
-        var db = LoginData_1.LoginData.sharedInstance.db;
+        var db = this.loginDataInstance().db;
         var deleteTableItemPath = this.tablePath.deleteTableItemPath(this);
         this.willDelete();
         // Delete

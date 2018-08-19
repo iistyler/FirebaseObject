@@ -24,6 +24,7 @@ var LoginData_1 = require("./LoginData");
 var ObjectPath = /** @class */ (function () {
     function ObjectPath() {
         var _this = this;
+        this.loginDataInstance = LoginData_1.LoginData.sharedInstance;
         /// Path used for loading the object with `loadSelf`
         this.loadSelfPath = function (object) {
             return _this.defaultItemPath(object);
@@ -42,7 +43,7 @@ var ObjectPath = /** @class */ (function () {
         };
         /// default path of the items table
         this.defaultTablePath = function (object) {
-            var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+            var loginId = _this.loginDataInstance.loginId;
             return loginId + '/' + object.constructor['tableName'];
         };
         /// default path of the item
@@ -51,21 +52,21 @@ var ObjectPath = /** @class */ (function () {
         };
         /// Path to load children from
         this.loadChildrenPath = function (object, childType) {
-            var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+            var loginId = _this.loginDataInstance.loginId;
             return loginId + '/' + childType.tableName;
         };
         this.loadAssociatedPath = function (objectType, childId) {
-            var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+            var loginId = _this.loginDataInstance.loginId;
             return loginId + "/" + objectType.tableName + '/' + childId;
         };
         this.loadChildrenConditionParameter = function (object) {
             return object.constructor['tableName'] + 'Id';
         };
         this.loadChildrenConditionValue = function (object) {
-            return object.constructor['tableName'] + 'Id';
+            return object.data["uid"];
         };
         this.loadAllPath = function (object) {
-            var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+            var loginId = _this.loginDataInstance.loginId;
             return loginId + '/' + object.tableName;
         };
     }

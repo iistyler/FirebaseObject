@@ -27,8 +27,8 @@ import { ObjectPath } from "./ObjectPath";
 export class Loadable extends FirebaseInterface {
 
     public static loadAllOfType(type, callback) {
-        const db = LoginData.sharedInstance.db;
-        const loginId = LoginData.sharedInstance.loginId;
+        const db = Loadable.loginDataInstance().db;
+        const loginId = Loadable.loginDataInstance().loginId;
         const loadAllPath = type.classTablePath.loadAllPath(type);
 
         db.ref(loadAllPath).once('value').then(function (response) {
@@ -50,6 +50,10 @@ export class Loadable extends FirebaseInterface {
 
     public associatedObjects: {};
 
+    public static loginDataInstance = () => {
+        return LoginData.sharedInstance;
+    };
+
     /*      [ Load children ]       */
 
     public importData(data) {
@@ -67,8 +71,8 @@ export class Loadable extends FirebaseInterface {
     }
 
     public loadChildren(childType, callback) {
-        const db = LoginData.sharedInstance.db;
-        const loginId = LoginData.sharedInstance.loginId;
+        const db = this.loginDataInstance().db;
+        const loginId = this.loginDataInstance().loginId;
         const self = this;
         const loadChildrenPath = this.tablePath.loadChildrenPath(this, childType);
         const loadChildrenConditionParameter = this.tablePath.loadChildrenConditionParameter(this);
@@ -129,8 +133,8 @@ export class Loadable extends FirebaseInterface {
 	}
 
     public loadAssociatedObject(type, id, callback) {
-		const db = LoginData.sharedInstance.db;
-		const loginId = LoginData.sharedInstance.loginId;
+		const db = this.loginDataInstance().db;
+		const loginId = this.loginDataInstance().loginId;
 		const self = this;
 		const path = this.tablePath.loadAssociatedPath(type, id);
 
@@ -163,7 +167,7 @@ export class Loadable extends FirebaseInterface {
     }
 
     public loadSelf(callback=null) {
-        const db = LoginData.sharedInstance.db;
+        const db = this.loginDataInstance().db;
         const self = this;
         const loadSelfPath = this.tablePath.loadSelfPath(this);
 

@@ -31,7 +31,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var FirebaseInterface_1 = require("./FirebaseInterface");
-var LoginData_1 = require("./LoginData");
 var Savable = /** @class */ (function (_super) {
     __extends(Savable, _super);
     function Savable() {
@@ -39,7 +38,7 @@ var Savable = /** @class */ (function (_super) {
     }
     /*      [ Saving ]       */
     Savable.prototype.save = function () {
-        var db = LoginData_1.LoginData.sharedInstance.db;
+        var db = this.loginDataInstance().db;
         var saveTablePath = this.tablePath.saveTablePath(this);
         this.willSave();
         // New object, we get a new UID for it

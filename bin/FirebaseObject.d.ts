@@ -2,10 +2,12 @@ import { Savable } from "./Savable";
 import { Deletable } from "./Deletable";
 import { Loadable } from "./Loadable";
 import { ObjectPath } from "./ObjectPath";
+import { LoginData } from "./LoginData";
 export declare class FirebaseObject implements Savable, Deletable, Loadable {
     static tableName: string;
+    loginDataInstance: () => LoginData;
     data: {};
-    tablePath: any;
+    tablePath: ObjectPath;
     static classTablePath: ObjectPath;
     keys: {}[];
     importData: (any) => void;

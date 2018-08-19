@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 import { ObjectPath } from "./ObjectPath";
+import { LoginData } from "./LoginData";
 
 export class FirebaseInterface {
 
@@ -32,7 +33,9 @@ export class FirebaseInterface {
     /// Data loaded from FB
     public data: {};
 
-    /// Keys to load from FB
+    public loginDataInstance: () => LoginData;
+
+        /// Keys to load from FB
     public keys: {}[];
 
 	public static classTablePath: ObjectPath;

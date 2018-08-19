@@ -39,8 +39,8 @@ var Loadable = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Loadable.loadAllOfType = function (type, callback) {
-        var db = LoginData_1.LoginData.sharedInstance.db;
-        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var db = Loadable.loginDataInstance().db;
+        var loginId = Loadable.loginDataInstance().loginId;
         var loadAllPath = type.classTablePath.loadAllPath(type);
         db.ref(loadAllPath).once('value').then(function (response) {
             var objectsJSON = response.val();
@@ -67,8 +67,8 @@ var Loadable = /** @class */ (function (_super) {
         }
     };
     Loadable.prototype.loadChildren = function (childType, callback) {
-        var db = LoginData_1.LoginData.sharedInstance.db;
-        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var db = this.loginDataInstance().db;
+        var loginId = this.loginDataInstance().loginId;
         var self = this;
         var loadChildrenPath = this.tablePath.loadChildrenPath(this, childType);
         var loadChildrenConditionParameter = this.tablePath.loadChildrenConditionParameter(this);
@@ -125,14 +125,12 @@ var Loadable = /** @class */ (function (_super) {
         block.start();
     };
     Loadable.prototype.loadAssociatedObject = function (type, id, callback) {
-        var db = LoginData_1.LoginData.sharedInstance.db;
-        var loginId = LoginData_1.LoginData.sharedInstance.loginId;
+        var db = this.loginDataInstance().db;
+        var loginId = this.loginDataInstance().loginId;
         var self = this;
         var path = this.tablePath.loadAssociatedPath(type, id);
-        console.log("path", path);
         db.ref(path).once('value').then(function (response) {
             var objectJSON = response.val();
-            console.log("Got", objectJSON);
             self.associatedObjects[type.tableName][id] = new type(objectJSON);
             if (callback)
                 callback();
@@ -158,7 +156,7 @@ var Loadable = /** @class */ (function (_super) {
     };
     Loadable.prototype.loadSelf = function (callback) {
         if (callback === void 0) { callback = null; }
-        var db = LoginData_1.LoginData.sharedInstance.db;
+        var db = this.loginDataInstance().db;
         var self = this;
         var loadSelfPath = this.tablePath.loadSelfPath(this);
         db.ref(loadSelfPath).once('value').then(function (response) {
@@ -166,6 +164,9 @@ var Loadable = /** @class */ (function (_super) {
             if (callback)
                 callback();
         });
+    };
+    Loadable.loginDataInstance = function () {
+        return LoginData_1.LoginData.sharedInstance;
     };
     return Loadable;
 }(FirebaseInterface_1.FirebaseInterface));

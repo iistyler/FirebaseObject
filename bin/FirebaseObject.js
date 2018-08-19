@@ -24,9 +24,13 @@ var Savable_1 = require("./Savable");
 var Deletable_1 = require("./Deletable");
 var Loadable_1 = require("./Loadable");
 var ObjectPath_1 = require("./ObjectPath");
+var LoginData_1 = require("./LoginData");
 var FirebaseObject = /** @class */ (function () {
     function FirebaseObject() {
-        this.tablePath = this.constructor["classTablePath"];
+        this.loginDataInstance = function () {
+            return LoginData_1.LoginData.sharedInstance;
+        };
+        this.tablePath = new ObjectPath_1.ObjectPath();
     }
     FirebaseObject.classTablePath = new ObjectPath_1.ObjectPath();
     return FirebaseObject;

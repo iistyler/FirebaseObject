@@ -24,6 +24,8 @@ import { LoginData } from "./LoginData";
 
 export class ObjectPath {
 
+    public loginDataInstance = LoginData.sharedInstance;
+
 	/// Path used for loading the object with `loadSelf`
 	public loadSelfPath = (object: any) => {
 		return this.defaultItemPath(object);
@@ -46,7 +48,7 @@ export class ObjectPath {
 
 	/// default path of the items table
 	public defaultTablePath = (object: any) => {
-		const loginId = LoginData.sharedInstance.loginId;
+		const loginId = this.loginDataInstance.loginId;
 		return loginId + '/' + object.constructor['tableName'];
 	};
 
@@ -57,25 +59,25 @@ export class ObjectPath {
 
 	/// Path to load children from
 	public loadChildrenPath = (object: any, childType: any) => {
-		const loginId = LoginData.sharedInstance.loginId;
+		const loginId = this.loginDataInstance.loginId;
 		return loginId + '/' + childType.tableName
 	};
 
 	public loadAssociatedPath = (objectType: any, childId: String) => {
-		const loginId = LoginData.sharedInstance.loginId;
+		const loginId = this.loginDataInstance.loginId;
 		return loginId + "/" + objectType.tableName + '/' + childId;
 	};
 
 	public loadChildrenConditionParameter = (object: any) => {
-		return object.constructor['tableName'] + 'Id'
+		return object.constructor['tableName'] + 'Id';
 	};
 
 	public loadChildrenConditionValue = (object: any) => {
-		return object.constructor['tableName'] + 'Id'
+		return object.data["uid"];
 	};
 
 	public loadAllPath = (object: any) => {
-		const loginId = LoginData.sharedInstance.loginId;
+		const loginId = this.loginDataInstance.loginId;
 		return loginId + '/' + object.tableName;
 	}
 

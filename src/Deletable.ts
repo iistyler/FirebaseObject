@@ -27,7 +27,7 @@ export class Deletable extends FirebaseInterface {
     /*      [ Deleting ]       */
 
     public delete() {
-        const db = LoginData.sharedInstance.db;
+        const db = this.loginDataInstance().db;
         const deleteTableItemPath = this.tablePath.deleteTableItemPath(this);
 
         this.willDelete();

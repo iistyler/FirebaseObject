@@ -1,10 +1,12 @@
 import { FirebaseInterface } from './FirebaseInterface';
+import { LoginData } from './LoginData';
 export declare class Loadable extends FirebaseInterface {
     static loadAllOfType(type: any, callback: any): void;
     childTypes: any[];
     children: {};
     associatedObjectTypes: any[];
     associatedObjects: {};
+    static loginDataInstance: () => LoginData;
     importData(data: any): void;
     loadChildren(childType: any, callback: any): void;
     loadAssociatedObjects(callback: any): void;

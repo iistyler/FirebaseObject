@@ -23,15 +23,20 @@ import { Savable } from "./Savable";
 import { Deletable } from "./Deletable";
 import { Loadable } from "./Loadable";
 import { ObjectPath } from "./ObjectPath";
+import { LoginData } from "./LoginData";
 
 export class FirebaseObject implements Savable, Deletable, Loadable {
 
     public static tableName: string;
 
+    public loginDataInstance = () => {
+        return LoginData.sharedInstance;
+    };
+
     /// Data loaded from FB
     public data: {};
 
-	public tablePath = this.constructor["classTablePath"];
+	public tablePath = new ObjectPath();
 
     public static classTablePath = new ObjectPath();
 
