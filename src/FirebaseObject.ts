@@ -71,9 +71,9 @@ export class FirebaseObject implements Savable, Deletable, Loadable {
 
     /*      [ Loading ]       */
 
-    public loadChildren: (any) => void;
+    public loadChildren: (callback) => void;
 
-    public loadAllChildren: () => void;
+    public loadAllChildren: (callback) => void;
 
     public childTypes: any[];
 
