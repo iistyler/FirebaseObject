@@ -23,11 +23,11 @@ import { FirebaseInterface } from './FirebaseInterface';
 import { LoginData } from './LoginData';
 import { ObjectPath } from "./ObjectPath";
 
-export class Savable extends FirebaseInterface {
+export class Savable<T extends object = {}> extends FirebaseInterface<T> {
 
     /*      [ Saving ]       */
 
-    public save() {
+    public save(): Promise<{}> {
         const db = this.loginDataInstance().db;
         const saveTablePath = this.tablePath.saveTablePath(this);
 
@@ -40,9 +40,12 @@ export class Savable extends FirebaseInterface {
         const saveTableItemPath = this.tablePath.saveTableItemPath(this);
 
         // Save
-        db.ref(saveTableItemPath).set(this.data);
-
-        this.didSave();
+        return db.ref(saveTableItemPath)
+            .set(this.data)
+            .then((data) => {
+              this.didSave();
+              return data;
+            });
     }
 
     public willSave() {

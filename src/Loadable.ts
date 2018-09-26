@@ -24,7 +24,7 @@ import { LoginData } from './LoginData';
 import { AsyncBlock } from 'simple-async-block/AsyncBlock';
 import { ObjectPath } from "./ObjectPath";
 
-export class Loadable extends FirebaseInterface {
+export class Loadable<T extends object> extends FirebaseInterface<T> {
 
     public static loadAllOfType(type, callback) {
         const db = Loadable.loginDataInstance().db;
@@ -56,11 +56,14 @@ export class Loadable extends FirebaseInterface {
 
     /*      [ Load children ]       */
 
-    public importData(data) {
+    public importData(data: T) {
         const self = this;
 
         if (!data) return;
-
+        if (!self.data) {
+          self.data = {} as any as T;
+        }
+        
         // Takes the given data and maps it to the keys
         for (const keyRecord of self.keys) {
             const fieldKey = keyRecord['key'];

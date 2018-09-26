@@ -25,7 +25,7 @@ import { Loadable } from "./Loadable";
 import { ObjectPath } from "./ObjectPath";
 import { LoginData } from "./LoginData";
 
-export class FirebaseObject implements Savable, Deletable, Loadable {
+export class FirebaseObject<T extends object = {}> implements Savable<T>, Deletable<T>, Loadable<T> {
 
     public static tableName: string;
 
@@ -34,24 +34,24 @@ export class FirebaseObject implements Savable, Deletable, Loadable {
     };
 
     /// Data loaded from FB
-    public data: {};
+    public data: T;
 
-	public tablePath = new ObjectPath();
+	  public tablePath = new ObjectPath();
 
     public static classTablePath = new ObjectPath();
 
     /// Keys to load from FB
-    public keys: {}[];
+    public keys: { key: string, [otherProperty: string]: any }[];
 
     /*      [ Loadable ]       */
 
-    public importData: (any) => void;
+    public importData: (data: T) => void;
 
     public loadSelf: (callback) => void;
 
     /*      [ Saving ]       */
 
-    public save: () => void;
+    public save: () => Promise<any>;
 
     public willSave: () => void;
 

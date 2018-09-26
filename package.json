@@ -2,10 +2,11 @@
   "name": "firebase-object",
   "version": "1.0.0",
   "description": "Classes for abstracting firebase logic out of your application",
-  "main": "main.js",
+  "main": "bin/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf bin",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,11 @@
   "dependencies": {
     "angularfire2": "^5.0.0-rc.11",
     "simple-async-block": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.2",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.0",
+    "typescript": "^3.0.3"
   }
 }

@@ -1,2 +1,3 @@
 build:
-	tsc --skipLibCheck
+	npm run clean
+	npm run build

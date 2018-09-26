@@ -22,7 +22,7 @@
 import { FirebaseInterface } from "./FirebaseInterface";
 import { LoginData } from './LoginData';
 
-export class Deletable extends FirebaseInterface {
+export class Deletable<T extends object> extends FirebaseInterface<T> {
 
     /*      [ Deleting ]       */
 

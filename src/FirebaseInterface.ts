@@ -22,7 +22,7 @@
 import { ObjectPath } from "./ObjectPath";
 import { LoginData } from "./LoginData";
 
-export class FirebaseInterface {
+export class FirebaseInterface<T extends object> {
 
     constructor() {
 
@@ -31,14 +31,14 @@ export class FirebaseInterface {
     public static tableName = '';
 
     /// Data loaded from FB
-    public data: {};
+    public data: T;
 
     public loginDataInstance: () => LoginData;
 
         /// Keys to load from FB
-    public keys: {}[];
+    public keys: { key: string, [otherProperty: string]: any }[];
 
-	public static classTablePath: ObjectPath;
+	  public static classTablePath: ObjectPath;
 
     public tablePath = FirebaseInterface.classTablePath;
 }
