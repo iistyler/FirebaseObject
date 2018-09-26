@@ -1,3 +1,3 @@
 build:
-	npm run clean
-	npm run build
+	cd bin && npm run clean
+	cd bin && npm run build
