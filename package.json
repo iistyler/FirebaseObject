@@ -5,7 +5,7 @@
   "main": "bin/index.js",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf bin",
+    "clean": "rm -rf bin/*.d.ts bin/*.js",
     "test": "jest"
   },
   "repository": {

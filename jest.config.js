@@ -6,6 +6,10 @@ module.exports = {
   "modulePathIgnorePatterns": [
     "platforms/.+"
   ],
+  "collectCoverageFrom": [
+    "src/**/*.{ts,tsx}",
+    "!**/__tests__/**/*"
+  ],
   "moduleFileExtensions": [
     "ts",
     "tsx",

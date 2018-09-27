@@ -4,9 +4,9 @@
   "description": "Classes for abstracting firebase logic out of your application",
   "main": "index.js",
   "scripts": {
-    "build": "cd .. && tsc",
-    "clean": "rm -rf *.d.ts *.js",
-    "test": "cd .. && jest"
+    "build": "cd .. && npm run build",
+    "clean": "cd .. && npm run clean",
+    "test": "cd .. && npm run test"
   },
   "repository": {
     "type": "git",

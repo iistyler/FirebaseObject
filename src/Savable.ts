@@ -20,8 +20,6 @@
 // THE SOFTWARE.
 
 import { FirebaseInterface } from './FirebaseInterface';
-import { LoginData } from './LoginData';
-import { ObjectPath } from "./ObjectPath";
 
 export class Savable<T extends object = {}> extends FirebaseInterface<T> {
 
