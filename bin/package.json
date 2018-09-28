@@ -1,6 +1,6 @@
 {
   "name": "firebase-object",
-  "version": "1.0.17",
+  "version": "1.0.19",
   "description": "Classes for abstracting firebase logic out of your application",
   "main": "index.js",
   "scripts": {
